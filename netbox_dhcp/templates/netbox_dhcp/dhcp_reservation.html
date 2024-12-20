@@ -1,0 +1,51 @@
+{% block content %}
+    <div class="row mb-3">
+        <div class="col col-md-6">
+            <div class="card">
+                <h2 class="card-header">
+                    DHCP Reservation
+                    <div class="card-actions">
+                        {% if not object.dhcpreservation %}
+                            <a href="{% url 'plugins:netbox_dhcp:dhcpreservation_create_ipaddress' ip_address_id=object.pk %}"
+                               class="btn btn-success">
+                                <span class="mdi mdi-plus" aria-hidden="true"></span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'plugins:netbox_dhcp:dhcpreservation_edit' pk=object.dhcpreservation.id %}"
+                               class="btn btn-primary">
+                                <span class="mdi mdi-pencil" aria-hidden="true"></span>
+                            </a>
+                            <a href="{% url 'plugins:netbox_dhcp:dhcpreservation_delete' pk=object.dhcpreservation.id %}"
+                               class="btn btn-danger">
+                                <span class="mdi mdi-trash-can-outline" aria-hidden="true"></span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </h2>
+                {% if object.dhcpreservation %}
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3 text-nowrap">MAC address</dt>
+                            <dd class="col-sm-9 text-nowrap">{{ object.dhcpreservation.mac_address }}</dd>
+
+                            <dt class="col-sm-3 text-nowrap">Status</dt>
+                            <dd class="col-sm-9 text-nowrap">{{ object.dhcpreservation.status }}</dd>
+
+                            <dt class="col-sm-3 text-nowrap">DHCP server</dt>
+                            <dd class="col-sm-9 text-nowrap">
+                                <a href="{% url 'plugins:netbox_dhcp:dhcpserver' pk=object.dhcpreservation.dhcp_server.id %}">
+                                    {{ object.dhcpreservation.dhcp_server }}
+                                </a>
+                            </dd>
+
+                            <dt class="col-sm-3 text-nowrap">Last updated</dt>
+                            <dd class="col-sm-9 text-nowrap">
+                                    {{ object.last_updated }}
+                            </dd>
+                        </dl>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
