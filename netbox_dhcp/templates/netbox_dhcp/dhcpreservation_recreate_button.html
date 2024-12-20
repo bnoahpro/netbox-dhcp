@@ -1,0 +1,10 @@
+{% if object.dhcp_reservation %}
+    <form method="post" class="inline-block">
+        {% csrf_token %}
+        <button type="submit" name="_edit"
+                formaction="{% url 'plugins:netbox_dhcp:dhcpreservation_recreate' ip_address_id=object.pk %}"
+                class="btn btn-success">
+            <span class="mdi mdi-refresh" aria-hidden="true">Trigger DHCP</span>
+        </button>
+    </form>
+{% endif %}
